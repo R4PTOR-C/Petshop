@@ -1,0 +1,30 @@
+.navbar-petspot {
+    background-color: #FFD100; /* amarelo Pedigree */
+    padding: 12px 20px;
+}
+
+.navbar-petspot .navbar-brand {
+    color: #0033A0;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navbar-petspot .nav-link {
+    color: #0033A0 !important;
+    font-weight: 500;
+}
+
+.navbar-petspot .nav-link:hover {
+    text-decoration: underline;
+}
+
+.navbar-petspot .btn-search {
+    background-color: #0033A0;
+    color: white;
+    font-weight: 500;
+}
+
+.navbar-petspot .btn-search:hover {
+    background-color: #0033A0;
+}
