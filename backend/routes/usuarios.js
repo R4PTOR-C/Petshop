@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 // GET /usuarios - listar todos os usuários (sem mostrar a senha)
@@ -39,6 +40,50 @@ router.post('/', async (req, res) => {
     } catch (err) {
         console.error('Erro ao cadastrar usuário:', err);
         res.status(500).json({ erro: 'Erro interno ao cadastrar' });
+    }
+});
+
+
+// POST /usuarios/login
+router.post('/login', async (req, res) => {
+    const { email, senha } = req.body;
+
+    try {
+        const result = await db.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(401).json({ erro: 'Usuário não encontrado' });
+        }
+
+        const usuario = result.rows[0];
+
+        // Verifica a senha
+        const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+        if (!senhaCorreta) {
+            return res.status(401).json({ erro: 'Senha incorreta' });
+        }
+
+        // Gera token
+        const token = jwt.sign(
+            { id: usuario.id, nome: usuario.nome, email: usuario.email },
+            'segredo-petspot', // substitua por uma variável de ambiente no futuro
+            { expiresIn: '2h' }
+        );
+
+        // Retorna token e dados
+        res.json({
+            mensagem: 'Login realizado com sucesso',
+            token,
+            usuario: {
+                id: usuario.id,
+                nome: usuario.nome,
+                email: usuario.email
+            }
+        });
+
+    } catch (err) {
+        console.error('Erro no login:', err);
+        res.status(500).json({ erro: 'Erro ao realizar login' });
     }
 });
 

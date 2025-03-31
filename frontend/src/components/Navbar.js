@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 import { FaDog } from 'react-icons/fa';
 import { GiDogHouse } from 'react-icons/gi';
@@ -7,7 +7,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 function Navbar() {
     const location = useLocation();
+    const navigate = useNavigate();
     const isHome = location.pathname === '/';
+
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuario');
+        navigate('/');
+    };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-petspot">
@@ -15,8 +24,6 @@ function Navbar() {
                 <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
                     <div className="d-flex align-items-center position-relative">
                         <GiDogHouse size={30} style={{ color: '#0056b3' }} />
-
-                        {/* Espaço reservado pro cachorro */}
                         <div style={{ width: 28, height: 30, position: 'relative', marginLeft: '6px' }}>
                             <AnimatePresence mode="wait">
                                 {!isHome && (
@@ -61,6 +68,20 @@ function Navbar() {
                             <Link className="nav-link" to="/novo_produto">Novo Produto</Link>
                         </li>
                     </ul>
+
+                    <div className="d-flex align-items-center gap-3 ms-auto">
+                        {!usuarioLogado ? (
+                            <>
+                                <Link className="btn btn-outline-light btn-sm" to="/login">Login</Link>
+                                <Link className="btn btn-warning btn-sm" to="/criar-conta">Criar Conta</Link>
+                            </>
+                        ) : (
+                            <>
+                                <span className="text-white">Olá, {usuarioLogado.nome} 👋</span>
+                                <button onClick={handleLogout} className="btn btn-outline-light btn-sm">Sair</button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </nav>
