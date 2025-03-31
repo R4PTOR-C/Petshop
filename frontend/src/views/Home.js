@@ -7,6 +7,8 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import "../styles/Home.css"
 import Categorias from "../components/Categorias";
 import { useParams } from 'react-router-dom';
+import Breadcrumb from '../components/Breadcrumb';
+
 
 
 function Home() {
@@ -81,21 +83,36 @@ function Home() {
             .then(res => {
                 let lista = res.data;
 
-                if (animal && categoria) {
-                    const animalReal = traduzirAnimal(animal);
-                    const categoriaReal = traduzirCategoria(categoria);
+                const traduzirAnimal = (valorUrl) => {
+                    if (valorUrl === 'caes') return 'cães';
+                    if (valorUrl === 'gatos') return 'gatos';
+                    return valorUrl;
+                };
 
+                const traduzirCategoria = (valorUrl) => {
+                    if (valorUrl === 'saude') return 'saúde';
+                    return valorUrl;
+                };
+
+                const animalReal = animal ? traduzirAnimal(animal) : null;
+                const categoriaReal = categoria ? traduzirCategoria(categoria) : null;
+
+                if (animal && categoria) {
                     lista = lista.filter(prod =>
-                        prod.animal.toLowerCase() === animalReal.toLowerCase() &&
-                        prod.categoria.toLowerCase() === categoriaReal.toLowerCase()
+                        prod.animal.toLowerCase() === animalReal &&
+                        prod.categoria.toLowerCase() === categoriaReal
+                    );
+                } else if (animal) {
+                    lista = lista.filter(prod =>
+                        prod.animal.toLowerCase() === animalReal
                     );
                 }
-
 
                 setProdutos(lista);
             })
             .catch(err => console.error('Erro ao buscar produtos:', err));
     }, [animal, categoria]);
+
 
 
 
@@ -124,22 +141,39 @@ function Home() {
     );
 
     return (
+
         <div className="container mt-4">
+            {animal && categoria && <Breadcrumb animal={animal} categoria={categoria} />}
+
             <h2 className="mb-4">🐾 Produtos em destaque</h2>
 
-            {produtos.length > 4 ? (
-                <Slider {...settings}>
-                    {produtos.map(produto => renderCard(produto))}
-                </Slider>
-            ) : (
+            {animal && categoria ? (
                 <div className="row">
-                    {produtos.map(produto => (
+                    {produtos.slice(0, 20).map(produto => (
                         <div className="col-md-3 mb-4" key={produto.id}>
                             {renderCard(produto)}
                         </div>
                     ))}
+                    {produtos.length === 0 && (
+                        <p className="text-muted">Nenhum produto encontrado.</p>
+                    )}
                 </div>
+            ) : (
+                produtos.length > 4 ? (
+                    <Slider {...settings}>
+                        {produtos.map(produto => renderCard(produto))}
+                    </Slider>
+                ) : (
+                    <div className="row">
+                        {produtos.map(produto => (
+                            <div className="col-md-3 mb-4" key={produto.id}>
+                                {renderCard(produto)}
+                            </div>
+                        ))}
+                    </div>
+                )
             )}
+
 
             <Categorias />
 
