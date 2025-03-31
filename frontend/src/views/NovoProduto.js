@@ -27,19 +27,17 @@ function NovoProduto() {
         setMensagem('');
 
         try {
-            // 1. Upload da imagem para Cloudinary
             const formData = new FormData();
             formData.append('file', form.imagem);
-            formData.append('upload_preset', 'petspot_upload'); // ajuste para o nome do seu preset
+            formData.append('upload_preset', 'petspot_upload');
 
             const uploadRes = await axios.post(
-                'https://api.cloudinary.com/v1_1/dtyyrfo8e/image/upload', // substitua pelo seu cloud_name
+                'https://api.cloudinary.com/v1_1/dtyyrfo8e/image/upload',
                 formData
             );
 
             const imagem_url = uploadRes.data.secure_url;
 
-            // 2. Enviar os dados pro backend
             await axios.post('http://localhost:3001/produtos', {
                 nome: form.nome,
                 preco: form.preco,
@@ -76,12 +74,27 @@ function NovoProduto() {
 
                 <div className="mb-3">
                     <label className="form-label">Animal</label>
-                    <input type="text" className="form-control" name="animal" value={form.animal} onChange={handleChange} required />
+                    <select className="form-select" name="animal" value={form.animal} onChange={handleChange} required>
+                        <option value="">Selecione o animal</option>
+                        <option value="cães">Cães</option>
+                        <option value="gatos">Gatos</option>
+                        <option value="pássaros">Pássaros</option>
+                        <option value="peixes">Peixes</option>
+                        <option value="outros">Outros</option>
+                    </select>
                 </div>
 
                 <div className="mb-3">
                     <label className="form-label">Categoria</label>
-                    <input type="text" className="form-control" name="categoria" value={form.categoria} onChange={handleChange} required />
+                    <select className="form-select" name="categoria" value={form.categoria} onChange={handleChange} required>
+                        <option value="">Selecione a categoria</option>
+                        <option value="comida">Comida</option>
+                        <option value="higiene">Higiene</option>
+                        <option value="saúde">Saúde</option>
+                        <option value="casa">Casa</option>
+                        <option value="coleiras">Coleiras</option>
+                        <option value="roupas">Roupas</option>
+                    </select>
                 </div>
 
                 <div className="mb-3">

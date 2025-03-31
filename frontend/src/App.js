@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import NovoProduto from './views/NovoProduto';
 import Home from './views/Home';
 import EditarProduto from './views/EditarProduto';
+import CriarConta from "./views/CriarConta";
 
 <Routes>
     {/* outras rotas */}
@@ -22,6 +23,8 @@ function App() {
                   <Route path="/produtos" element={<Produtos />} />
                   <Route path="/novo_produto" element={<NovoProduto />} />
                   <Route path="/produtos/:id/editar" element={<EditarProduto />} />
+                  <Route path="/criar-conta" element={<CriarConta />} />
+
               </Routes>
           </div>
       </Router>
