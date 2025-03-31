@@ -5,16 +5,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import "../styles/Home.css"
+import Categorias from "../components/Categorias";
+import { useParams } from 'react-router-dom';
 
 
 function Home() {
     const [produtos, setProdutos] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/produtos')
-            .then(res => setProdutos(res.data))
-            .catch(err => console.error('Erro ao buscar produtos:', err));
-    }, []);
+
+    const { animal, categoria } = useParams();
+
 
     // 1. Primeiro defina as setas personalizadas:
     const NextArrow = (props) => {
@@ -65,6 +65,39 @@ function Home() {
         ]
     };
 
+    const traduzirAnimal = (valorUrl) => {
+        if (valorUrl === 'caes') return 'cães';
+        if (valorUrl === 'gatos') return 'gatos';
+        return valorUrl;
+    };
+
+    const traduzirCategoria = (valorUrl) => {
+        if (valorUrl === 'saude') return 'saúde';
+        return valorUrl;
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/produtos')
+            .then(res => {
+                let lista = res.data;
+
+                if (animal && categoria) {
+                    const animalReal = traduzirAnimal(animal);
+                    const categoriaReal = traduzirCategoria(categoria);
+
+                    lista = lista.filter(prod =>
+                        prod.animal.toLowerCase() === animalReal.toLowerCase() &&
+                        prod.categoria.toLowerCase() === categoriaReal.toLowerCase()
+                    );
+                }
+
+
+                setProdutos(lista);
+            })
+            .catch(err => console.error('Erro ao buscar produtos:', err));
+    }, [animal, categoria]);
+
+
 
     const renderCard = (produto) => (
         <div key={produto.id} className="carousel-card-wrapper">
@@ -107,6 +140,9 @@ function Home() {
                     ))}
                 </div>
             )}
+
+            <Categorias />
+
         </div>
     );
 }

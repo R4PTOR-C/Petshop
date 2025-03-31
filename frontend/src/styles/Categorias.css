@@ -1,0 +1,38 @@
+.categorias-section {
+    padding: 20px 0;
+}
+
+.categorias-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.categoria-item {
+    flex: 0 0 auto;
+    text-align: center;
+    cursor: pointer;
+    scroll-snap-align: start;
+}
+
+.categoria-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoria-placeholder {
+    font-size: 24px;
+}
+
+.categoria-nome {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
