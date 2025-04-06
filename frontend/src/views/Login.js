@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Login.css';
 
 function Login() {
     const [form, setForm] = useState({ email: '', senha: '' });
@@ -21,13 +22,11 @@ function Login() {
 
         try {
             const res = await axios.post('http://localhost:3001/usuarios/login', form);
-
-            // Salva o token e dados do usuário no localStorage
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('usuario', JSON.stringify(res.data.usuario));
 
             setMensagem('Login realizado com sucesso!');
-            setTimeout(() => navigate('/'), 1500); // Redireciona para a home ou dashboard
+            setTimeout(() => navigate('/'), 1500);
         } catch (err) {
             console.error('Erro no login:', err);
             setMensagem(err.response?.data?.erro || 'Erro ao fazer login.');
@@ -37,39 +36,42 @@ function Login() {
     };
 
     return (
-        <div className="container mt-4">
-            <h2>Login</h2>
-            {mensagem && <div className="alert alert-info mt-3">{mensagem}</div>}
+        <div className="login-container">
+            <div className="login-card shadow">
+                <h2 className="mb-3 text-center">Bem-vindo de volta 🐾</h2>
 
-            <form onSubmit={handleSubmit} className="mt-3">
-                <div className="mb-3">
-                    <label className="form-label">E-mail</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                {mensagem && <div className="alert alert-info">{mensagem}</div>}
 
-                <div className="mb-3">
-                    <label className="form-label">Senha</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        name="senha"
-                        value={form.senha}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">E-mail</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <button type="submit" className="btn btn-primary" disabled={carregando}>
-                    {carregando ? 'Entrando...' : 'Entrar'}
-                </button>
-            </form>
+                    <div className="mb-3">
+                        <label className="form-label">Senha</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="senha"
+                            value={form.senha}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-warning w-100" disabled={carregando}>
+                        {carregando ? 'Entrando...' : 'Entrar'}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

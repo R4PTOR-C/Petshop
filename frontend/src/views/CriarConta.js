@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/Login.css'; // reutiliza o mesmo CSS da tela de login
 
 function CriarConta() {
     const [form, setForm] = useState({
@@ -35,64 +36,67 @@ function CriarConta() {
     };
 
     return (
-        <div className="container mt-4">
-            <h2>Criar Conta</h2>
-            {mensagem && <div className="alert alert-info mt-3">{mensagem}</div>}
+        <div className="login-container">
+            <div className="login-card shadow">
+                <h2 className="mb-3 text-center">Criar Conta 🐶</h2>
 
-            <form onSubmit={handleSubmit} className="mt-3">
-                <div className="mb-3">
-                    <label className="form-label">Nome</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="nome"
-                        value={form.nome}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                {mensagem && <div className="alert alert-info">{mensagem}</div>}
 
-                <div className="mb-3">
-                    <label className="form-label">Idade</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        name="idade"
-                        value={form.idade}
-                        onChange={handleChange}
-                        required
-                        min="0"
-                    />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Nome</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="nome"
+                            value={form.nome}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <div className="mb-3">
-                    <label className="form-label">E-mail</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="mb-3">
+                        <label className="form-label">Idade</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            name="idade"
+                            value={form.idade}
+                            onChange={handleChange}
+                            required
+                            min="0"
+                        />
+                    </div>
 
-                <div className="mb-3">
-                    <label className="form-label">Senha</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        name="senha"
-                        value={form.senha}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="mb-3">
+                        <label className="form-label">E-mail</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <button type="submit" className="btn btn-success" disabled={carregando}>
-                    {carregando ? 'Criando...' : 'Criar Conta'}
-                </button>
-            </form>
+                    <div className="mb-3">
+                        <label className="form-label">Senha</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="senha"
+                            value={form.senha}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-success w-100" disabled={carregando}>
+                        {carregando ? 'Criando...' : 'Criar Conta'}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

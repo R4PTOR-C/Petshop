@@ -17,8 +17,12 @@ function Categorias() {
                         className="categoria-item"
                         onClick={() => navigate(`/${animalPath}/${cat}`)}
                     >
-                        <div className="categoria-img categoria-color--" style={{ backgroundColor: corDaCategoria(cat) }}>
-                            <span className="categoria-placeholder">📦</span>
+                        <div className="categoria-img">
+                            <img
+                                src={`/img/categorias/${animalPath}/${cat}.png`}
+                                alt={`${cat}-${animalPath}`}
+                                className="categoria-icon"
+                            />
                         </div>
                         <span className="categoria-nome">{formatarNome(cat)}</span>
                     </div>
@@ -35,20 +39,6 @@ function Categorias() {
     );
 }
 
-// Cores temáticas para cada categoria (opcional)
-const corDaCategoria = (categoria) => {
-    switch (categoria) {
-        case 'comida': return '#FFD100';
-        case 'higiene': return '#A3D9FF';
-        case 'saude': return '#FFA3A3';
-        case 'casa': return '#D5C9F5';
-        case 'coleiras': return '#FFDEAD';
-        case 'roupas': return '#B3FFC1';
-        default: return '#EEE';
-    }
-};
-
-// Capitaliza primeira letra
 const formatarNome = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export default Categorias;

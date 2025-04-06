@@ -8,6 +8,7 @@ import "../styles/Home.css"
 import Categorias from "../components/Categorias";
 import { useParams } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
+import { Link } from 'react-router-dom';
 
 
 
@@ -117,6 +118,8 @@ function Home() {
 
 
     const renderCard = (produto) => (
+        <Link to={`/produtos/${produto.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+
         <div key={produto.id} className="carousel-card-wrapper">
             <div className="card produto-card">
                 <div className="produto-card-img">
@@ -137,6 +140,7 @@ function Home() {
                 </div>
             </div>
         </div>
+        </Link>
 
     );
 
@@ -175,7 +179,10 @@ function Home() {
             )}
 
 
-            <Categorias />
+            {!animal && !categoria &&
+                <div className="w-100">
+                <Categorias/>
+            </div>}
 
         </div>
     );

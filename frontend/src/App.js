@@ -8,6 +8,9 @@ import EditarProduto from './views/EditarProduto';
 import CriarConta from "./views/CriarConta";
 import Login from './views/Login';
 import ProdutosFiltrados from './views/ProdutosFiltrados';
+import ShowProduto from './views/ShowProduto';
+import Carrinho from './views/Carrinho';
+
 
 
 
@@ -32,6 +35,8 @@ function App() {
                   <Route path="/criar-conta" element={<CriarConta />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/produtos" element={<ProdutosFiltrados />} />
+                  <Route path="/produtos/:id" element={<ShowProduto />} />
+                  <Route path="/carrinho" element={<Carrinho />} />
 
               </Routes>
           </div>

@@ -1,87 +1,118 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import '../styles/Navbar.css';
-import { FaDog } from 'react-icons/fa';
-import { GiDogHouse } from 'react-icons/gi';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import '../styles/Navbar.css'; // o CSS que você já tem
+import { FaTwitter } from 'react-icons/fa';
+import { FiInstagram } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
 function Navbar() {
-    const location = useLocation();
     const navigate = useNavigate();
-    const isHome = location.pathname === '/';
-
+    const location = useLocation();
     const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
         localStorage.removeItem('usuario');
+        localStorage.removeItem('token');
         navigate('/');
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-petspot">
-            <div className="container-fluid d-flex align-items-center">
-                <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
-                    <div className="d-flex align-items-center position-relative">
-                        <GiDogHouse size={30} style={{ color: '#0056b3' }} />
-                        <div style={{ width: 28, height: 30, position: 'relative', marginLeft: '6px' }}>
-                            <AnimatePresence mode="wait">
-                                {!isHome && (
-                                    <motion.div
-                                        key="dog"
-                                        initial={{ x: -30, opacity: 0 }}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        exit={{ x: 30, opacity: 0 }}
-                                        transition={{ duration: 0.6 }}
-                                        style={{ position: 'absolute', top: 4 }}
-                                    >
-                                        <FaDog size={22} style={{ color: '#0056b3' }} />
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                    <span className="ms-2">Pet Spot</span>
-                </Link>
+        <nav className="navbar">
+            {/* TOPO */}
+            <div className="menu_superior_horizontal">
+                <div className="logo" onClick={() => navigate('/')}>
+                    <img src="./petspot_dog.png" alt="logo_petspot" style={{ height: '60px' }} />
+                </div>
 
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                <div className="barra_pesquisa">
+                    <input type="text" placeholder="Buscar..." />
+                    <button type="submit">Buscar</button>
+                </div>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">Início</Link>
+                <div className="button_social">
+                    <button className="btn_twitter"><FaTwitter /></button>
+                    <button className="btn_whatsapp"><FaWhatsapp /></button>
+                    <button className="btn_instagram"><FiInstagram /></button>
+                </div>
+
+                {/* LOGIN / USUÁRIO */}
+                <div className="d-flex align-items-center ms-4 gap-2">
+                    {!usuarioLogado ? (
+                        <>
+                            <Link className="btn btn-outline-dark btn-sm" to="/login">Login</Link>
+                            <Link className="btn btn-warning btn-sm" to="/criar-conta">Criar Conta</Link>
+                        </>
+                    ) : (
+                        <>
+                            <span style={{ fontWeight: 'bold' }}>Olá, {usuarioLogado.nome}</span>
+                            <button className="btn btn-outline-dark btn-sm" onClick={handleLogout}>Sair</button>
+                        </>
+                    )}
+                </div>
+            </div>
+
+            {/* MENU PRINCIPAL */}
+            <div className="menu_horizontal">
+                <div className="itens_menu">
+                    <ul>
+                        <li className="item_menu">
+                            <a href="#">Cachorros</a>
+                            <div className="dropdown">
+                                <ul>
+                                    <li className="sub_itens_menu"><Link to="/caes/comida">Alimentação</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/caes/higiene">Higiene</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/caes/saude">Farmácia</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/caes/casa">Acessórios</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/caes/brinquedos">Brinquedos</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/caes/cama">Casas e Camas</Link></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/produtos">Produtos</Link>
+
+                        <li className="item_menu">
+                            <a href="#">Gatos</a>
+                            <div className="dropdown">
+                                <ul>
+                                    <li className="sub_itens_menu"><Link to="/gatos/comida">Alimentação</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/gatos/higiene">Higiene</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/gatos/saude">Farmácia</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/gatos/casa">Acessórios</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/gatos/brinquedos">Brinquedos</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/gatos/cama">Casas e Camas</Link></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/novo_produto">Novo Produto</Link>
+
+                        <li className="item_menu">
+                            <a href="#">Pássaros</a>
+                            <div className="dropdown">
+                                <ul>
+                                    <li className="sub_itens_menu"><Link to="/passaros/comida">Alimentação</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/passaros/saude">Farmácia</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/passaros/acessorios">Acessórios</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/passaros/gaiola">Gaiolas</Link></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li className="item_menu">
+                            <a href="#">Peixes</a>
+                            <div className="dropdown">
+                                <ul>
+                                    <li className="sub_itens_menu"><Link to="/peixes/comida">Alimentação</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/peixes/agua">Tratamento de Água</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/peixes/saude">Farmácia</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/peixes/acessorios">Acessórios</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/peixes/brinquedos">Brinquedos</Link></li>
+                                    <li className="sub_itens_menu"><Link to="/peixes/aquarios">Aquários</Link></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li className="item_menu">
+                            <Link to="/carrinho">Carrinho</Link>
                         </li>
                     </ul>
-
-                    <div className="d-flex align-items-center gap-3 ms-auto">
-                        {!usuarioLogado ? (
-                            <>
-                                <Link className="btn btn-outline-light btn-sm" to="/login">Login</Link>
-                                <Link className="btn btn-warning btn-sm" to="/criar-conta">Criar Conta</Link>
-                            </>
-                        ) : (
-                            <>
-                                <span className="text-white">Olá, {usuarioLogado.nome} 👋</span>
-                                <button onClick={handleLogout} className="btn btn-outline-light btn-sm">Sair</button>
-                            </>
-                        )}
-                    </div>
                 </div>
             </div>
         </nav>

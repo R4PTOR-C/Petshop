@@ -1,38 +1,51 @@
 .categorias-section {
     padding: 20px 0;
+    width: 100%;
 }
 
 .categorias-list {
     display: flex;
+    flex-direction: row;
     overflow-x: auto;
-    gap: 20px;
-    padding-bottom: 10px;
+    gap: 100px; /* AUMENTE esse valor para mais espaço */
+    padding: 10px 20px 20px 20px;
     scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+}
+
+.categorias-list::-webkit-scrollbar {
+    display: none; /* Chrome */
 }
 
 .categoria-item {
     flex: 0 0 auto;
     text-align: center;
-    cursor: pointer;
     scroll-snap-align: start;
+    cursor: pointer;
 }
 
 .categoria-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 6px;
 }
+
+.categoria-icon {
+    width: 120px; /* ajuste conforme o necessário */
+    height: 120px;
+    object-fit: contain;
+}
+
+.categoria-nome {
+    font-weight: 600;
+    font-size: 15px;
+    color: #222;
+    text-align: center;
+}
+
 
 .categoria-placeholder {
     font-size: 24px;
 }
 
-.categoria-nome {
-    font-weight: 500;
-    font-size: 14px;
-    color: #333;
-}

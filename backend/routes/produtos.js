@@ -67,6 +67,20 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+// DELETE /produtos/:id
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await db.query('DELETE FROM produtos WHERE id = $1', [id]);
+        res.status(200).json({ mensagem: 'Produto excluído com sucesso' });
+    } catch (err) {
+        console.error('Erro ao excluir produto:', err);
+        res.status(500).json({ erro: 'Erro ao excluir produto' });
+    }
+});
+
+
 
 
 module.exports = router;

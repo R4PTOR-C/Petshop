@@ -1,30 +1,232 @@
-.navbar-petspot {
-    background-color: #FFD100; /* amarelo Pedigree */
-    padding: 12px 20px;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Bangers", system-ui;
+    box-sizing: border-box;
 }
 
-.navbar-petspot .navbar-brand {
-    color: #0033A0;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
+.navbar {
+    background-color: #ffce00;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 0 5px rgb(131, 131, 131);
 }
 
-.navbar-petspot .nav-link {
-    color: #0033A0 !important;
-    font-weight: 500;
+.menu_superior_horizontal{
+    display: flex;
+    gap: 25px;
 }
 
-.navbar-petspot .nav-link:hover {
-    text-decoration: underline;
+.logo{
+    cursor: pointer;
 }
 
-.navbar-petspot .btn-search {
-    background-color: #0033A0;
+.barra_pesquisa {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 650px; /* Aumentei a largura */
+    border: 2px solid #ffce00;
+}
+
+.barra_pesquisa input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+
+
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.barra_pesquisa button {
+    padding: 10px 20px;
+    background-color: #e58d00;
     color: white;
-    font-weight: 500;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
-.navbar-petspot .btn-search:hover {
-    background-color: #0033A0;
+/* Hover: botão fica verde com sombra verde */
+.barra_pesquisa button:hover {
+    background-color: #28a745; /* Verde */
+    box-shadow: 2px 2px 10px rgba(40, 167, 69, 0.5);
+}
+
+/* Ativo (quando clica): tom mais claro de verde */
+.barra_pesquisa button:active {
+    background-color: #5cd065; /* Verde mais claro */
+    box-shadow: 2px 2px 10px rgba(92, 208, 101, 0.7);
+}
+
+/* Modificações: Botões sociais */
+.button_social {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.button_social button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Botão Celular */
+.button_social .btn_twitter {
+    background-color: #e58d00;
+}
+
+.button_social .btn_twitter:hover {
+    background-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.7);
+}
+
+/*Animação de giro e mudança de icon do botão*/
+
+.btn_twitter.clicado {
+    background-color: rgb(7, 7, 7);
+    color: #fff;
+}
+
+.btn_twitter i {
+    transition: transform 0.3s ease;
+}
+.btn_twitter i.girando {
+    transform: rotate(360deg);
+}
+
+
+/* Botão WhatsApp */
+.button_social .btn_whatsapp {
+    background-color: #e58d00;
+}
+
+.button_social .btn_whatsapp:hover {
+    background-color: #25d366;
+    box-shadow: 0px 0px 10px rgba(37, 211, 102, 0.7);
+}
+
+/* Botão Instagram */
+.button_social .btn_instagram {
+    background-color: #e58d00;
+}
+
+.button_social .btn_instagram:hover {
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+    box-shadow: 0px 0px 10px rgba(238, 42, 123, 0.7);
+}
+
+
+
+
+
+.itens_menu ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.itens_menu ul li {
+    padding: 0;
+    position: relative; /* Para posicionar o dropdown corretamente */
+    width: 180px; /* Ajuste conforme necessário */
+    text-align: center; /* Centraliza o texto */
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
+.itens_menu > ul > li:hover {
+    background-color: #e58d00;
+    color: black;
+    box-shadow: inset 0 0 8px #ffce00;
+    border-radius: 5px;
+    transform: scale(1.1); /* Aumenta o tamanho */
+    margin: 0 10px; /* Empurra os itens ao lado */
+}
+
+.itens_menu a {
+    font-size: 25px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+/* DROPDOWN */
+.dropdown {
+    display: none; /* Esconde os submenus por padrão */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 100%; /* Agora o dropdown terá a mesma largura do item do menu */
+    text-align: center;
+    z-index: 10;
+}
+
+.dropdown ul {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%; /* Garante que os itens do dropdown tenham a mesma largura */
+}
+
+.dropdown ul li {
+    width: 100%;
+}
+
+.dropdown ul li:hover {
+    background-color: transparent;
+    color: inherit;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.dropdown ul li:hover a {
+    border-bottom: 2px solid black;
+}
+
+.sub_itens_menu {
+    padding: 10px;
+}
+
+.sub_itens_menu a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    border: none;
+}
+
+.sub_itens_menu a:hover {
+    border-radius: 3px;
+}
+
+/* Exibir dropdown ao passar o mouse */
+.item_menu:hover .dropdown {
+    display: block;
 }
