@@ -11,9 +11,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     box-shadow: 0 0 5px rgb(131, 131, 131);
+    position: relative; /* necessário para criar contexto de empilhamento */
+    z-index: 1000; /* acima do normal */
 }
+
+.menu_horizontal {
+    margin-top: 20px;
+}
+
+
 
 .menu_superior_horizontal{
     display: flex;
@@ -185,7 +192,7 @@
     border-radius: 5px;
     width: 100%; /* Agora o dropdown terá a mesma largura do item do menu */
     text-align: center;
-    z-index: 10;
+    z-index: 9999;
 }
 
 .dropdown ul {
@@ -230,3 +237,19 @@
 .item_menu:hover .dropdown {
     display: block;
 }
+
+.item_menu:hover ~ .dropdown-overlay {
+    display: block;
+}
+
+
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 900;
+}
+

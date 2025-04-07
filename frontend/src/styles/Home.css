@@ -3,8 +3,7 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
-    background-color: #FFD100;
-    color: #0056b3;
+    color: #ffc107;
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
@@ -12,9 +11,7 @@
     transition: 0.2s ease;
 }
 
-.custom-arrow:hover {
-    background-color: #ffc107;
-}
+
 
 .custom-arrow.prev {
     left: -25px;

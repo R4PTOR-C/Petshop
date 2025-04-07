@@ -10,6 +10,7 @@ import Login from './views/Login';
 import ProdutosFiltrados from './views/ProdutosFiltrados';
 import ShowProduto from './views/ShowProduto';
 import Carrinho from './views/Carrinho';
+import Busca from './components/Busca';
 
 
 
@@ -37,7 +38,7 @@ function App() {
                   <Route path="/produtos" element={<ProdutosFiltrados />} />
                   <Route path="/produtos/:id" element={<ShowProduto />} />
                   <Route path="/carrinho" element={<Carrinho />} />
-
+                  <Route path="/busca" element={<Busca />} />
               </Routes>
           </div>
       </Router>

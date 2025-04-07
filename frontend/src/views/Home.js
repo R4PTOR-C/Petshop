@@ -85,15 +85,24 @@ function Home() {
                 let lista = res.data;
 
                 const traduzirAnimal = (valorUrl) => {
-                    if (valorUrl === 'caes') return 'cães';
-                    if (valorUrl === 'gatos') return 'gatos';
-                    return valorUrl;
+                    switch (valorUrl) {
+                        case 'caes': return 'cães';
+                        case 'gatos': return 'gatos';
+                        case 'passaros': return 'pássaros';
+                        case 'peixes': return 'peixes';
+                        default: return valorUrl;
+                    }
                 };
 
+
                 const traduzirCategoria = (valorUrl) => {
-                    if (valorUrl === 'saude') return 'saúde';
-                    return valorUrl;
+                    switch (valorUrl) {
+                        case 'saude': return 'saúde';
+                        case 'agua': return 'água';
+                        default: return valorUrl;
+                    }
                 };
+
 
                 const animalReal = animal ? traduzirAnimal(animal) : null;
                 const categoriaReal = categoria ? traduzirCategoria(categoria) : null;
@@ -147,21 +156,24 @@ function Home() {
     return (
 
         <div className="container mt-4">
-            {animal && categoria && <Breadcrumb animal={animal} categoria={categoria} />}
 
             <h2 className="mb-4">🐾 Produtos em destaque</h2>
 
-            {animal && categoria ? (
-                <div className="row">
-                    {produtos.slice(0, 20).map(produto => (
-                        <div className="col-md-3 mb-4" key={produto.id}>
-                            {renderCard(produto)}
-                        </div>
-                    ))}
-                    {produtos.length === 0 && (
-                        <p className="text-muted">Nenhum produto encontrado.</p>
-                    )}
-                </div>
+            {(animal || categoria) ? (
+                <>
+                    <Breadcrumb animal={animal} categoria={categoria} />
+                    <div className="row">
+                        {produtos.length > 0 ? (
+                            produtos.map(produto => (
+                                <div className="col-md-3 mb-4" key={produto.id}>
+                                    {renderCard(produto)}
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-muted">Nenhum produto encontrado.</p>
+                        )}
+                    </div>
+                </>
             ) : (
                 produtos.length > 4 ? (
                     <Slider {...settings}>
@@ -177,6 +189,7 @@ function Home() {
                     </div>
                 )
             )}
+
 
 
             {!animal && !categoria &&
