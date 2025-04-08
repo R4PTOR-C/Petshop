@@ -63,10 +63,20 @@ function Navbar() {
                             </>
                         )}
                     </div>
+                    <button
+                        className={`menu-toggle ${menuAberto ? 'ativo' : ''}`}
+                        onClick={() => setMenuAberto(!menuAberto)}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+
                 </div>
 
                 {/* MENU PRINCIPAL */}
-                <div className="menu_horizontal">
+                <div className={`menu_horizontal ${menuAberto ? 'aberto' : ''}`}>
                     <div className="itens_menu">
                         <ul>
                             <li className="item_menu"

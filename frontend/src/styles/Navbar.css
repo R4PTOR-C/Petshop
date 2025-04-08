@@ -14,6 +14,8 @@
     box-shadow: 0 0 5px rgb(131, 131, 131);
     position: relative; /* necessário para criar contexto de empilhamento */
     z-index: 1000; /* acima do normal */
+    width: 100%;
+
 }
 
 .menu_horizontal {
@@ -25,6 +27,9 @@
 .menu_superior_horizontal{
     display: flex;
     gap: 25px;
+    width: 100%;
+    flex-wrap: wrap; /* isso ajuda em telas pequenas */
+    justify-content: space-between;
 }
 
 .logo{
@@ -252,4 +257,146 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 900;
 }
+
+/* Esconde o menu horizontal em telas pequenas */
+@media (max-width: 768px) {
+    .menu_horizontal {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #ffce00;
+        padding: 1rem;
+    }
+
+    .menu_horizontal.aberto {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1100;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #000;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        transform-origin: center;
+    }
+
+
+    /* ANIMAÇÃO: transformar em X quando aberto */
+    .menu-toggle.ativo span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.ativo span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.ativo span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+
+
+    .itens_menu ul {
+        flex-direction: column;
+        align-items: center; /* Alinha os itens no centro */
+        padding: 0;
+    }
+
+    .item_menu {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .item_menu a {
+        font-size: 20px;
+        padding: 10px;
+        display: block;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .item_menu a:hover {
+        background-color: #e58d00;
+        border-radius: 5px;
+    }
+
+    .dropdown {
+        position: static;
+        box-shadow: none;
+    }
+
+    .menu_superior_horizontal {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 80px; /* novo */
+        padding: 10px;
+        position: relative;
+    }
+
+
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* novo */
+    }
+
+
+    .button_social {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .d-flex.align-items-center.ms-4.gap-2 {
+        justify-content: center;
+        margin-left: 0 !important;
+    }
+
+    .barra_pesquisa {
+        width: 90%;
+        max-width: 400px;
+        margin: 10px auto;
+    }
+
+
+}
+
+/* Esconde o botão do menu em telas grandes */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .barra_pesquisa {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
 
